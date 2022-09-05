@@ -1,9 +1,12 @@
+import { PageWrapper } from "./components/ui/PageWrapper.styled";
+import Header from "./components/header/Header";
+
 const App = () => {
   return (
-    <div>
-
-    </div>
+    <PageWrapper>
+      <Header />
+    </PageWrapper>
   );
-}
+};
 
 export default App;

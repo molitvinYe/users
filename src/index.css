@@ -2,5 +2,7 @@
 
 body {
   margin: 0;
-  font-family: 'Nunito'
+  font-family: 'Nunito';
+  font-size: 16px;
+  line-height: 26px;
 }
