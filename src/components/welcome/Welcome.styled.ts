@@ -10,7 +10,7 @@ export const Section = styled.section`
   height: 650px;
   width: 100%;
   
-  margin: 0 auto;
+  margin: 0 auto 140px;
   
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bg});
   background-size: cover;
