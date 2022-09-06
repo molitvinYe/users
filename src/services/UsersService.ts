@@ -14,7 +14,6 @@ export const usersAPI = createApi({
         url: "/users",
         params: {
           page: page,
-          offset: 1,
           count: 6,
         },
       })

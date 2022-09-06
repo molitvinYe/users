@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { IUser } from "../../models/IUsers";
-import { Body, ImageContainer, Card, Name, List, Item } from "./User.styled";
+import { Body, Card } from "./User.styled";
+import UserImage from "./UserImage";
+import UserInfo from "./UserInfo";
 
 const User: React.FC<{ user: IUser }> = ({ user }) => {
   return (
     <Card>
       <Body>
-        <ImageContainer>
-          <img src={user.photo} />
-        </ImageContainer>
-        <Name>{user.name}</Name>
-        <List>
-          <Item>{user.position}</Item>
-          <Item>{user.email}</Item>
-          <Item>{user.phone}</Item>
-        </List>
+        <UserImage photo={user.photo} />
+        <UserInfo
+          name={user.name}
+          position={user.position}
+          email={user.email}
+          phone={user.phone}
+        />
       </Body>
     </Card>
   );

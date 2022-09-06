@@ -5,6 +5,7 @@ import { Section, Body, List } from "./Users.styled";
 import User from "./User";
 import { PageContainer } from "../ui/PageContainer.styled";
 import { SectionTitle } from "../ui/SectionTitle.styled";
+import { Button } from "../ui/Button.styled";
 
 const Users = () => {
   const [page, setPage] = useState<number>(1);
@@ -13,9 +14,11 @@ const Users = () => {
 
   useEffect(() => {
     if (data) {
-      setUsers(data.users);
+      setUsers((prev) => prev.concat(data.users));
     }
   }, [data]);
+
+  const setNextPage = () => setPage((prev) => prev + 1);
 
   return (
     <Section>
@@ -23,10 +26,14 @@ const Users = () => {
         <Body>
           <SectionTitle>Working with GET request</SectionTitle>
           <List>
-            {users.map((user) => (
-              <User key={user.id} user={user} />
-            ))}
+            {users.length !== 0 &&
+              users.map((user) => <User key={user.id} user={user} />)}
           </List>
+          {page !== data?.total_pages && (
+            <Button isBig={true} onClick={setNextPage}>
+              Show more
+            </Button>
+          )}
         </Body>
       </PageContainer>
     </Section>
