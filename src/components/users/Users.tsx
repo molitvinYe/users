@@ -8,14 +8,14 @@ import { SectionTitle } from "../ui/SectionTitle.styled";
 import { Button } from "../ui/Button.styled";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { pageSlice } from "../../store/reducers/PageSlice";
+import { LoadingSpinner } from "../ui/LoadingSpinner";
 
 const Users = () => {
   const page = useAppSelector((state) => state.pageReducer.page);
-  console.log(page);
   const { nextPage } = pageSlice.actions;
   const dispatch = useAppDispatch();
   const [users, setUsers] = useState<IUser[]>([]);
-  const { data } = usersAPI.useFetchAllUsersQuery(page);
+  const { data, isFetching, isError } = usersAPI.useFetchAllUsersQuery(page);
 
   useEffect(() => {
     if (data) {
@@ -37,15 +37,27 @@ const Users = () => {
     <Section>
       <PageContainer>
         <Body>
-          <SectionTitle>Working with GET request</SectionTitle>
-          <List>
-            {users.length !== 0 &&
-              users.map((user) => <User key={user.id} user={user} />)}
-          </List>
-          {page !== data?.total_pages && (
-            <Button isBig={true} onClick={setNextPage}>
-              Show more
-            </Button>
+          {isError ? (
+            <SectionTitle>Cannot load users</SectionTitle>
+          ) : (
+            <>
+              <SectionTitle>Working with GET request</SectionTitle>
+              <List>
+                {users.length !== 0 &&
+                  users.map((user) => <User key={user.id} user={user} />)}
+              </List>
+              {isFetching ? (
+                <LoadingSpinner />
+              ) : (
+                <>
+                  {page !== data?.total_pages && (
+                    <Button isBig={true} onClick={setNextPage}>
+                      Show more
+                    </Button>
+                  )}
+                </>
+              )}
+            </>
           )}
         </Body>
       </PageContainer>

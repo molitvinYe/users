@@ -9,6 +9,8 @@ import CustomUploadInput from "../ui/CustomUploadInput";
 import { usersAPI } from "../../services/UsersService";
 import { pageSlice } from "../../store/reducers/PageSlice";
 import { useAppDispatch } from "../../hooks/redux";
+import successImage from "../../assets/success-image.svg";
+import { LoadingSpinner } from "../ui/LoadingSpinner";
 
 interface defaultFormData {
   name: string | null;
@@ -27,7 +29,8 @@ const SignUp = () => {
     photo: null,
   });
   const [isDisabled, setIsDisabled] = useState(true);
-  const [postUser] = usersAPI.usePostUserMutation();
+  const [postUser, { isSuccess, isLoading, error }] =
+    usersAPI.usePostUserMutation();
   const { startPage } = pageSlice.actions;
   const dispatch = useAppDispatch();
   const { data: token } = usersAPI.useGetTokenQuery(null);
@@ -35,6 +38,16 @@ const SignUp = () => {
   useEffect(() => {
     setIsDisabled(Object.values(formData).includes(null));
   }, [formData]);
+
+  useEffect(() => {
+    if (error) {
+      const currentError = error as {
+        data: { message: string; success: boolean };
+        status: number;
+      };
+      alert(currentError.data.message);
+    }
+  }, [error]);
 
   const setValue = (key: string, value: any) => {
     setFormData((prev) => {
@@ -56,43 +69,55 @@ const SignUp = () => {
 
   return (
     <Section>
-      <SectionTitle>Working with POST request</SectionTitle>
-      <Form onSubmit={submitHandler}>
-        <CustomInput
-          type="text"
-          placeholder="Your name"
-          id="name"
-          errorMassage="dont correct"
-          isValid={(value) => value.length >= 2}
-          getValue={setValue}
-        />
-        <CustomInput
-          type="email"
-          placeholder="Email"
-          id="email"
-          errorMassage="dont correct"
-          isValid={(value) => (value.match(emailExp) ? true : false)}
-          getValue={setValue}
-        />
-        <CustomInput
-          type="text"
-          placeholder="Phone"
-          id="phone"
-          errorMassage="dont correct"
-          helperText="+380XXXXXXXX"
-          isValid={(value) =>
-            value.match(phoneExp) && value.length === 13 ? true : false
-          }
-          getValue={setValue}
-        />
-        <SelectPosition getValue={setValue} />
-        <CustomUploadInput
-          id="user-upload-photo"
-          objKey="photo"
-          getValue={setValue}
-        />
-        <Button disabled={isDisabled}>Sign up</Button>
-      </Form>
+      <SectionTitle>
+        {isSuccess
+          ? "User successfully registered"
+          : "Working with POST request"}
+      </SectionTitle>
+      {isSuccess ? (
+        <img src={successImage} />
+      ) : (
+        <Form onSubmit={submitHandler}>
+          <CustomInput
+            type="text"
+            placeholder="Your name"
+            id="name"
+            errorMassage="dont correct"
+            isValid={(value) => value.length >= 2}
+            getValue={setValue}
+          />
+          <CustomInput
+            type="email"
+            placeholder="Email"
+            id="email"
+            errorMassage="dont correct"
+            isValid={(value) => (value.match(emailExp) ? true : false)}
+            getValue={setValue}
+          />
+          <CustomInput
+            type="text"
+            placeholder="Phone"
+            id="phone"
+            errorMassage="dont correct"
+            helperText="+380XXXXXXXX"
+            isValid={(value) =>
+              value.match(phoneExp) && value.length === 13 ? true : false
+            }
+            getValue={setValue}
+          />
+          <SelectPosition getValue={setValue} />
+          <CustomUploadInput
+            id="user-upload-photo"
+            objKey="photo"
+            getValue={setValue}
+          />
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <Button disabled={isDisabled}>Sign up</Button>
+          )}
+        </Form>
+      )}
     </Section>
   );
 };
