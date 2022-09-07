@@ -10,13 +10,32 @@ export const usersAPI = createApi({
   tagTypes: ["Users"],
   endpoints: (build) => ({
     fetchAllUsers: build.query<IUsers, number>({
-      query: (page) => ({
+      query: (page = 1) => ({
         url: "/users",
         params: {
           page: page,
           count: 6,
         },
-      })
+      }),
+      providesTags: result => ["Users"]
+    }),
+
+    postUser: build.mutation<IUsers, {token: string, body: FormData}>({
+      query: ({token, body}) => ({
+        url: "/users",
+        method: "POST",
+        headers: {
+          "token": token
+        },
+        body: body
+      }),
+      invalidatesTags: ["Users"]
+    }),
+
+    getToken: build.query<{success: boolean, token: string}, null>({
+      query: () => ({
+        url: "/token",
+      }),
     }),
   }),
 });

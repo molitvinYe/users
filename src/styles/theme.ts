@@ -22,6 +22,7 @@ export const defaultTheme: DefaultTheme = {
     black: 'rgba(0, 0, 0, 0.87)',
     white: '#FFFFFF',
     fields: {
+      text: '#7E7E7E',
       border: '#D0CFCF',
       error: '#CB3D40'
     }

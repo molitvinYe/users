@@ -6,19 +6,32 @@ import User from "./User";
 import { PageContainer } from "../ui/PageContainer.styled";
 import { SectionTitle } from "../ui/SectionTitle.styled";
 import { Button } from "../ui/Button.styled";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { pageSlice } from "../../store/reducers/PageSlice";
 
 const Users = () => {
-  const [page, setPage] = useState<number>(1);
+  const page = useAppSelector((state) => state.pageReducer.page);
+  console.log(page);
+  const { nextPage } = pageSlice.actions;
+  const dispatch = useAppDispatch();
   const [users, setUsers] = useState<IUser[]>([]);
   const { data } = usersAPI.useFetchAllUsersQuery(page);
 
   useEffect(() => {
     if (data) {
-      setUsers((prev) => prev.concat(data.users));
+      if (data.page === 1) {
+        setUsers(data.users);
+        return;
+      }
+
+      if (data.page === page) {
+        setUsers((prev) => prev.concat(data.users));
+        return;
+      }
     }
   }, [data]);
 
-  const setNextPage = () => setPage((prev) => prev + 1);
+  const setNextPage = () => dispatch(nextPage());
 
   return (
     <Section>

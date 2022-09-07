@@ -25,6 +25,7 @@ declare module 'styled-components' {
       black: string,
       white: string,
       fields: {
+        text: string,
         border: string,
         error: string
       }

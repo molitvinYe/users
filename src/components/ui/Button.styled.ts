@@ -36,6 +36,8 @@ export const Button = styled.button<{isBig?: boolean}>`
   border: none;
   border-radius: ${props => props.theme.borderRadius.buttons};
 
+  margin: 0 auto;
+
   &:hover {
     background-color: ${props => props.theme.palette.button.hover};
   }
