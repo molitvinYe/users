@@ -13,7 +13,9 @@ const Welcome = () => {
           mind. They should also be excited to learn, as the world of Front-End
           Development keeps evolving.
         </Text>
-        <LinkButton>Sign up</LinkButton>
+        <LinkButton to="signup" smooth={true}>
+          Sign up
+        </LinkButton>
       </Body>
     </Section>
   );

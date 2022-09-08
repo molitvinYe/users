@@ -68,7 +68,7 @@ const SignUp = () => {
   };
 
   return (
-    <Section>
+    <Section id="signup">
       <SectionTitle>
         {isSuccess
           ? "User successfully registered"

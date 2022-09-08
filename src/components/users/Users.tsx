@@ -34,7 +34,7 @@ const Users = () => {
   const setNextPage = () => dispatch(nextPage());
 
   return (
-    <Section>
+    <Section id="users">
       <PageContainer>
         <Body>
           {isError ? (

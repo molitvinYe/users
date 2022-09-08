@@ -10,8 +10,12 @@ const Header = () => {
         <Body>
           <Logo />
           <Navigation>
-            <LinkButton>Users</LinkButton>
-            <LinkButton>Sign up</LinkButton>
+            <LinkButton to="users" smooth={true}>
+              Users
+            </LinkButton>
+            <LinkButton to="signup" smooth={true}>
+              Sign up
+            </LinkButton>
           </Navigation>
         </Body>
       </PageContainer>

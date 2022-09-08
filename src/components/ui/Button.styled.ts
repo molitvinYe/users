@@ -1,6 +1,6 @@
 import styled from "styled-components";
-
-export const LinkButton = styled.a`
+import {Link} from 'react-scroll' 
+export const LinkButton = styled(Link)`
   cursor: pointer;
 
   display: flex;
