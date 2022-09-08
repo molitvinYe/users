@@ -41,6 +41,7 @@ const SignUp = () => {
   }, [formData]);
 
   useEffect(() => {
+    if (!isSuccess) return;
     const usersElement = document.getElementById("users") as HTMLElement;
 
     usersElement.scrollIntoView({ behavior: "smooth" });
