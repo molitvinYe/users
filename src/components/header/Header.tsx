@@ -10,10 +10,10 @@ const Header = () => {
         <Body>
           <Logo />
           <Navigation>
-            <LinkButton to="users" smooth={true}>
+            <LinkButton to="users" smooth={true} href="#users">
               Users
             </LinkButton>
-            <LinkButton to="signup" smooth={true}>
+            <LinkButton to="signup" smooth={true} href="#signup">
               Sign up
             </LinkButton>
           </Navigation>

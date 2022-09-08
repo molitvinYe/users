@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Name, List, Item } from "./UserInfo.styled";
 import UserEmail from "./UserEmail";
 

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {Link} from 'react-scroll' 
 export const LinkButton = styled(Link)`
   cursor: pointer;
+  text-decoration: none;
 
   display: flex;
   align-items: center;

@@ -7,7 +7,11 @@ const UserImage: React.FC<{ photo: string }> = ({ photo }) => {
   return (
     <ImageContainer>
       {isImageLoad ? (
-        <img src={photo} onError={() => setIsImageLoad(false)} />
+        <img
+          src={photo}
+          onError={() => setIsImageLoad(false)}
+          alt="user photo"
+        />
       ) : (
         <DefaultImage />
       )}
