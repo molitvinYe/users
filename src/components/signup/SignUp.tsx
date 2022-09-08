@@ -10,6 +10,7 @@ import { usersAPI } from "../../services/UsersService";
 import { pageSlice } from "../../store/reducers/PageSlice";
 import { useAppDispatch } from "../../hooks/redux";
 import successImage from "../../assets/success-image.svg";
+import * as Scrool from "react-scroll";
 import { LoadingSpinner } from "../ui/LoadingSpinner";
 
 interface defaultFormData {
@@ -38,6 +39,12 @@ const SignUp = () => {
   useEffect(() => {
     setIsDisabled(Object.values(formData).includes(null));
   }, [formData]);
+
+  useEffect(() => {
+    const usersElement = document.getElementById("users") as HTMLElement;
+
+    usersElement.scrollIntoView({ behavior: "smooth" });
+  }, [isSuccess]);
 
   useEffect(() => {
     if (error) {
